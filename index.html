@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../../vue.js"></script>
+    <script src="./index.js"></script>
+    <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+    <div class="app">
+        <shopcar></shopcar>
+    </div>
+    <!-- 组件化模块 -->
+    <!-- 标题 -->
+    <template id="shoptitle">
+        <p class="header">{{uname}}的购物车</p>
+    </template>
+    <!-- 内容 -->
+    <template id="shopcontent">
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>书籍名称</th>
+                    <th>出版日期</th>
+                    <th>单价</th>
+                    <th>购买数量</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(obj,index) in books" :key='obj.id'>
+                    <td>{{obj.id}}</td>
+                    <td>{{obj.uname}}</td>
+                    <td>{{obj.date}}</td>
+                    <td>{{obj.price | showPrice}} </td>
+                    <td>
+                        <!-- 当值为1时不能按 -->
+                        <button @click='jian(index)' :disabled="obj.num <=1">-</button>
+                        {{obj.num}}
+                        <button @click='add(index)'>+</button>
+                    </td>
+                    <td><button @click="removebook(index)">删除</button></td>
+                </tr>
+
+            </tbody>
+        </table>
+    </template>
+    <!-- 总计 -->
+    <template id="shoptotal">
+        <h2>总价格：{{sumprice}}</h2>
+    </template>
+
+    <!-- 购物车 父组件-->
+    <template id="shopcar">
+        <div class="gwcar">
+            <shop-title :uname='uname'></shop-title>
+            <shop-content :books='books'></shop-content>
+            <shop-total :sumprice='sumprice'></shop-total>
+        </div>
+    </template>
+
+
+    <script>
+    </script>
+</body>
+
+</html>
